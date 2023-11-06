@@ -1,0 +1,6 @@
+---
+severity:
+  level: medium
+rules:
+  skip-rules:
+    - AC_AZURE_0169  # Logs are handled by policy
