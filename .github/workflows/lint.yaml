@@ -1,41 +1,35 @@
 ---
-    name: Code linting
+name: Code linting
 
-    on:
-      pull_request:
-        branches: main
-      push:
-        branches: main
+on:
+  pull_request:
+    branches: main
+  push:
+    branches: main
 
-    jobs:
-      lint-code:
-        name: Lint codebase
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout
-            uses: actions/checkout@v4
-            with:
-              fetch-depth: 0
+jobs:
+  lint-code:
+    name: Lint codebase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-          - name: Setup Terraform
-            uses: hashicorp/setup-terraform@v3
-            with:
-              terraform_version: "~>1.5"
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "~>1.5"
 
-          - name: "Terraform: Format"
-            run: terraform fmt -diff -recursive -check
+      - name: "Terraform: Format"
+        run: terraform fmt -diff -recursive -check
 
-          - name: Run linter
-            uses: github/super-linter@v5
-            env:
-              VALIDATE_ALL_CODEBASE: false
-              DEFAULT_BRANCH: main
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run linter
+        uses: github/super-linter@v5
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-              LINTER_RULES_PATH: /
-              VALIDATE_ANSIBLE: false
-              VALIDATE_TERRAGRUNT: false
-              VALIDATE_TERRAFORM_TFLINT: true
-              VALIDATE_TERRAFORM_TERRASCAN: true
-              VALIDATE_POWERSHELL: true
-              VALIDATE_BASH: true
+          LINTER_RULES_PATH: /
