@@ -33,9 +33,3 @@
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
               LINTER_RULES_PATH: /
-              VALIDATE_ANSIBLE: false
-              VALIDATE_TERRAGRUNT: false
-              VALIDATE_TERRAFORM_TFLINT: true
-              VALIDATE_TERRAFORM_TERRASCAN: true
-              VALIDATE_POWERSHELL: true
-              VALIDATE_BASH: true
