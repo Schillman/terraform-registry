@@ -33,3 +33,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
           LINTER_RULES_PATH: /
+          VALIDATE_TERRAGRUNT: false
+          VALIDATE_TERRAFORM_TERRASCAN: false # Disabled due to optional support missing: https://github.com/tenable/terrascan/issues/1331
