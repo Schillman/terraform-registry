@@ -4,7 +4,8 @@ This is my central repository for storing a collection of Terraform modules.
 
 ## Using Modules
 
-You can easily reference modules from this repository by using the `source` and `version` arguments in your Terraform configuration.
+You can easily reference modules from this repository.
+Use the `source` argument in a Modules block.
 
 ```hcl
 module "vending_machine" {
@@ -14,7 +15,7 @@ module "vending_machine" {
 }
 ```
 
-Make sure to specify the correct `source` URL and version to retrieve the desired module.
+Make sure to specify the correct `source` URL and tag to retrieve the desired module.
 
 ## Adding Modules
 
