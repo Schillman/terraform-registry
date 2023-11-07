@@ -6,7 +6,8 @@ Centralized Repository for Terraform Modules  This repository serves as a centra
 Refer to modules in this repository with the `source` argument along with the `version` argument.
 ```hcl
 module "vending_machine" {
-  source = "github.com/Schillman/terraform-registry/modules/terraform-azurerm-subscription?ref=v0.0.1"
+  source = "github.com/Schillman/terraform-registry//modules/terraform-azurerm-subscription?ref=v1.0"
+
   ...
 }
 ```
