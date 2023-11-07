@@ -1,21 +1,27 @@
-# terraform-registry
+# Terraform Registry
 
-Centralized Repository for Terraform Modules  This repository serves as a central hub for storing a collection of reusable Terraform modules.
+This is my central repository for storing a collection of Terraform modules.
 
-## Using modules
+## Using Modules
 
-Refer to modules in this repository with the `source` argument along with the `version` argument.
+You can easily reference modules from this repository by using the `source` and `version` arguments in your Terraform configuration.
 
 ```hcl
 module "vending_machine" {
   source = "github.com/Schillman/terraform-registry//modules/terraform-azurerm-subscription?ref=v1.0"
 
-  ...
+  # Your module configuration here
 }
 ```
 
-## Adding modules
+Make sure to specify the correct `source` URL and version to retrieve the desired module.
 
-Modules belong to the `modules/` directory, with a corresponding test or example in the
-`tests/` and/or `example/` directory. Modules follow standard naming conventions from Terraform,
-which is `terraform-${provider}-${module_name}`, e.g. `terraform-docker-container`.
+## Adding Modules
+
+When adding new modules to this repository, follow these guidelines:
+
+- Place modules in the `modules/` directory.
+- Each and every module should include a corresponding tests and/or examples in the `tests/` and/or `examples/` directories.
+- Adhere to Terraform's standard naming conventions for modules, which follow the format: `terraform-${provider}-${module_name`, for example, `terraform-docker-container`.
+
+Contributions and improvements to the Terraform Registry are welcome. Feel free to open issues or submit pull requests to enhance the collection of Terraform modules.
