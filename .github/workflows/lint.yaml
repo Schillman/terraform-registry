@@ -1,5 +1,5 @@
 ---
-name: Code linting
+name: 🧐 Lint Code Base
 
 on:
   pull_request:
@@ -9,12 +9,13 @@ on:
 
 jobs:
   lint-code:
-    name: Lint codebase
+    name: Lint Code Base
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
 
       - name: Setup Terraform
@@ -25,13 +26,18 @@ jobs:
       - name: "Terraform: Format"
         run: terraform fmt -diff -recursive -check
 
-      - name: Run linter
+      - name: Lint Code Base
         uses: github/super-linter@v5
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          LINTER_RULES_PATH: /
-          VALIDATE_TERRAGRUNT: false
-          VALIDATE_TERRAFORM_TERRASCAN: false # Disabled due to optional support missing: https://github.com/tenable/terrascan/issues/1331
+          VALIDATE_ARM: true
+          VALIDATE_BASH: true
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_MARKDOWN: true
+          VALIDATE_NATURAL_LANGUAGE: true
+          VALIDATE_POWERSHELL: true
+          VALIDATE_TERRAFORM_FMT: true
+          VALIDATE_TERRAFORM_TFLINT: true
