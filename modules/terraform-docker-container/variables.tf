@@ -31,7 +31,7 @@ variable "devices" {
     permissions    = optional(string, "rwm") # The cgroup permissions given to the container to access the device. Defaults to rwm.
   }))
   description = "Bind devices to the container."
-  default     = null
+  default     = []
 }
 
 variable "gpus" {
@@ -44,12 +44,12 @@ variable "healthcheck" {
   type = list(object({
     test         = list(string)
     interval     = optional(string, 0) # Time between running the check (ms|s|m|h). Defaults to 0s.
-    retries      = optional(Number, 0) # Consecutive failures needed to report unhealthy. Defaults to 0.
+    retries      = optional(number, 0) # Consecutive failures needed to report unhealthy. Defaults to 0.
     start_period = optional(string, 0) # Start period for the container to initialize before counting retries towards unstable (ms|s|m|h). Defaults to 0s.
     timeout      = optional(string, 0) # Maximum time to allow one check to run (ms|s|m|h). Defaults to 0s
   }))
   description = "A test to perform to check that the container is healthy."
-  default     = null
+  default     = []
 }
 
 variable "network_mode" {

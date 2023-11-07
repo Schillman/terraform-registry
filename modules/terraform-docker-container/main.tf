@@ -19,18 +19,34 @@ resource "docker_volume" "volumes" {
 }
 
 resource "docker_container" "main" {
-  image = docker_image.main.image_id
-  name  = var.name
-
+  image        = docker_image.main.image_id
+  name         = var.name
   command      = var.command
-  devices      = var.devices
   env          = var.environment_variables
   gpus         = var.gpus
-  healthcheck  = var.healthcheck
   restart      = var.restart
   runtime      = var.runtime
   network_mode = var.network_mode
+  dynamic "healthcheck" {
+    for_each = var.healthcheck
 
+    content {
+      test         = healthcheck.value.test
+      interval     = healthcheck.value.interval
+      retries      = healthcheck.value.retries
+      start_period = healthcheck.value.start_period
+      timeout      = healthcheck.value.timeout
+    }
+  }
+  dynamic "devices" {
+    for_each = var.devices
+
+    content {
+      container_path = devices.value.container_path
+      host_path      = devices.value.host_path
+      permissions    = devices.value.permissions
+    }
+  }
   dynamic "ports" {
     for_each = var.ports
     content {

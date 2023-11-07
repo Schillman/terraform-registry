@@ -1,10 +1,10 @@
 ## Usage
 ```hcl
 module "ubuntu" {
-  source = "./modules/terraform-docker"
+  source = "../.."
 
-  name                  = format("server-%s", var.environment)
-  docker_image_name     = "linuxserver/ubuntu"
+  name                  = format("server-%s", "tst")
+  docker_image_name     = "ubuntu"
   network_mode          = "bridge"
 
   environment_variables = ["KEY1=VALUE1", "KEY2=VALUE2"]
