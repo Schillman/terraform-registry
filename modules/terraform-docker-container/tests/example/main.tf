@@ -14,9 +14,9 @@ provider "docker" {
 module "ubuntu" {
   source = "../.."
 
-  name                  = format("server-%s", "tst")
-  docker_image_name     = "ubuntu"
-  network_mode          = "bridge"
+  name              = format("server-%s", "tst")
+  docker_image_name = "ubuntu"
+  network_mode      = "bridge"
 
   environment_variables = ["KEY1=VALUE1", "KEY2=VALUE2"]
 
