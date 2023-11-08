@@ -33,6 +33,8 @@ jobs:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+          LINTER_RULES_PATH: /
+          MARKDOWN_CONFIG_FILE: .markdownlint.yml
           VALIDATE_ARM: true
           VALIDATE_BASH: true
           VALIDATE_GITHUB_ACTIONS: true

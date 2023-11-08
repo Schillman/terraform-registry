@@ -1,5 +1,7 @@
 # Terraform Registry
 
+[![🧐 Lint Code Base](https://github.com/Schillman/terraform-registry/actions/workflows/lint.yaml/badge.svg)](https://github.com/Schillman/terraform-registry/actions/workflows/lint.yaml)
+
 This is my central repository for storing a collection of Terraform modules.
 
 ## Using Modules
