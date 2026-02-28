@@ -14,4 +14,4 @@
 
 ## Results
 
-*(populated after merge)*
+Populated after merge.
