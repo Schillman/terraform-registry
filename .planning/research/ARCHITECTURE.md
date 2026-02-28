@@ -222,7 +222,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "~>1.6"
+          terraform_version: "~>1.9"
       - name: terraform test
         run: |
           cd ${{ matrix.module }}/tests/example
