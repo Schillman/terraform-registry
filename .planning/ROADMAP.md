@@ -12,7 +12,7 @@ This roadmap transforms a single Docker container module in a flat directory str
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - Migrate module to namespaced path and establish agent conventions
+- [x] **Phase 1: Foundation** - Migrate module to namespaced path and establish agent conventions
 - [ ] **Phase 2: Automated Releases** - Wire up terraform-module-releaser and validate end-to-end
 - [ ] **Phase 3: Documentation and Governance** - Enforce terraform-docs and establish CODEOWNERS, branch protection, PR/issue templates
 - [ ] **Phase 4: Quality Gates** - Add dedicated TFLint and Trivy security scanning to CI
@@ -57,7 +57,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Migrate Docker container module to modules/docker/container/ with all required files, delete old directory
-- [ ] 01-02-PLAN.md — Create SKILL.md (agent operating manual), CLAUDE.md (Claude Code pointer), .markdownlintignore
+- [x] 01-02-PLAN.md — Create SKILL.md (agent operating manual), CLAUDE.md (Claude Code pointer), .markdownlintignore
 
 ---
 
@@ -319,7 +319,7 @@ Phases execute in numeric order: 1 --> 2 --> 3 --> 4 --> 5 --> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 1/2 | In progress | - |
+| 1. Foundation | 2/2 | Complete | 2026-02-28 |
 | 2. Automated Releases | 0/? | Not started | - |
 | 3. Documentation and Governance | 0/? | Not started | - |
 | 4. Quality Gates | 0/? | Not started | - |

@@ -16,11 +16,11 @@
 
 ### Agent Conventions
 
-- [ ] **AGNT-01**: `SKILL.md` at repo root documents commit conventions, module scaffold, autonomy matrix, and correct consumer source URL patterns
-- [ ] **AGNT-02**: `CLAUDE.md` at repo root mirrors or references `SKILL.md` for Claude Code agents
-- [ ] **AGNT-03**: Commit message type-to-semver mapping documented: `feat:` = minor, `fix:` = patch, `feat!:`/`fix!:` = major, `chore:`/`docs:`/`test:` = no release
-- [ ] **AGNT-04**: Autonomy matrix defined: agents may autonomously commit `feat:`/`fix:`. Breaking changes reported by tfbreak should be verified by a human before merging.
-- [ ] **AGNT-05**: Consumer source URL pattern documented without `depth=1` on version-pinned refs (documented pitfall)
+- [x] **AGNT-01**: `SKILL.md` at repo root documents commit conventions, module scaffold, autonomy matrix, and correct consumer source URL patterns
+- [x] **AGNT-02**: `CLAUDE.md` at repo root mirrors or references `SKILL.md` for Claude Code agents
+- [x] **AGNT-03**: Commit message type-to-semver mapping documented: `feat:` = minor, `fix:` = patch, `feat!:`/`fix!:` = major, `chore:`/`docs:`/`test:` = no release
+- [x] **AGNT-04**: Autonomy matrix defined: agents may autonomously commit `feat:`/`fix:`. Breaking changes reported by tfbreak should be verified by a human before merging.
+- [x] **AGNT-05**: Consumer source URL pattern documented without `depth=1` on version-pinned refs (documented pitfall)
 
 ### Releases
 
@@ -69,7 +69,7 @@
 ### Maintenance
 
 - [ ] **MAINT-01**: `.github/dependabot.yml` with `github-actions` ecosystem (weekly) and one `terraform` entry per module directory (monthly)
-- [ ] **MAINT-02**: `.markdownlintignore` excludes `.planning/` from markdownlint rules (internal tooling docs)
+- [x] **MAINT-02**: `.markdownlintignore` excludes `.planning/` from markdownlint rules (internal tooling docs)
 
 ## v2 Requirements
 

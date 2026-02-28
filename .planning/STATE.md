@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 ## Current Position
 
 Phase: 1 of 6 (Foundation)
-Plan: 1 of ? in current phase
-Status: Executing — Plan 01-01 complete
-Last activity: 2026-02-28 -- Plan 01-01 executed: migrated Docker container module to namespaced path
+Plan: 2 of 2 in current phase
+Status: Executing — Plan 01-02 complete
+Last activity: 2026-02-28 -- Plan 01-02 executed: created SKILL.md, CLAUDE.md agent operating conventions
 
-Progress: [█░░░░░░░░░] ~5%
+Progress: [██░░░░░░░░] ~10%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 6 min
+- Total plans completed: 2
+- Average duration: 4 min
 - Total execution time: 0.1 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation | 1 | 6 min | 6 min |
+| 01-foundation | 2 | 8 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (6 min)
-- Trend: N/A (first plan)
+- Last 5 plans: 01-01 (6 min), 01-02 (2 min)
+- Trend: Fast (documentation-only plan)
 
 *Updated after each plan completion*
 
@@ -50,6 +50,9 @@ Recent decisions affecting current work:
 - [01-01]: No deprecation stub for modules/terraform-docker-container/ -- full deletion, user decision
 - [01-01]: `image_id` output uses `docker_image.main.image_id` (not `.id`) -- user-locked attribute, different provider attributes
 - [01-01]: tests/example source changed to relative `../../` -- old GitHub URL pointed to deleted directory
+- [01-02]: docs:/chore:/refactor:/test:/ci: trigger patch bump (not no-release) -- CONTEXT.md locked user decision overrides REQUIREMENTS.md
+- [01-02]: feat!:/fix!: shorthand mandated over BREAKING CHANGE footer -- squash merges discard commit body, silently losing breaking signal
+- [01-02]: depth=1 forbidden in all version-pinned source URL examples -- documented as pitfall in SKILL.md
 
 ### Critical Pitfalls (Top 3)
 
@@ -68,6 +71,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 01-01-PLAN.md — Docker container module migration to modules/docker/container/
+Stopped at: Completed 01-02-PLAN.md — SKILL.md and CLAUDE.md agent operating conventions
 Resume file: None
-Next action: Execute next plan in Phase 1 (01-02 if it exists, else plan remaining Phase 1 plans)
+Next action: Phase 1 complete — proceed to Phase 2 (Release Automation)
