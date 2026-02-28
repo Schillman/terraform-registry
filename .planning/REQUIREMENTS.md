@@ -24,12 +24,12 @@
 
 ### Releases
 
-- [ ] **REL-01**: `release.yaml` workflow integrates `terraform-module-releaser` for automated per-module semantic versioning
-- [ ] **REL-02**: Release workflow uses `fetch-depth: 0` and explicit `permissions: contents: write, pull-requests: write`
-- [ ] **REL-03**: Module-scoped Git tags are created in format `modules/{provider}/{resource}/vX.Y.Z`
-- [ ] **REL-04**: GitHub Release notes are auto-generated per module from commit messages
-- [ ] **REL-05**: GitHub Wiki is initialized manually and populated by terraform-module-releaser per module
-- [ ] **REL-06**: First release validated end-to-end: `feat:` commit on main creates `modules/docker/container/v1.0.0` tag
+- [x] **REL-01**: `release.yaml` workflow integrates `terraform-module-releaser` for automated per-module semantic versioning
+- [x] **REL-02**: Release workflow uses `fetch-depth: 0` and explicit `permissions: contents: write, pull-requests: write`
+- [x] **REL-03**: Module-scoped Git tags are created in format `modules/{provider}/{resource}/vX.Y.Z`
+- [x] **REL-04**: GitHub Release notes are auto-generated per module from commit messages
+- [x] **REL-05**: GitHub Wiki is initialized manually and populated by terraform-module-releaser per module
+- [x] **REL-06**: First release validated end-to-end: `feat:` commit on main creates `modules/docker/container/v1.0.0` tag
 
 ### Documentation
 
@@ -47,7 +47,7 @@
 - [ ] **QUAL-03**: Trivy IaC scan (`scan-type: config`) blocks on `CRITICAL` and `HIGH` severity findings
 - [ ] **QUAL-04**: `.trivyignore` documents justified suppressions for intentional homelab configs (e.g., `network_mode: host`)
 - [ ] **QUAL-05**: Trivy SARIF output uploaded to GitHub Security tab and PR commment should be made with the result.
-- [ ] **QUAL-06**: PR title validation CI step rejects titles that do not match Conventional Commits regex
+- [x] **QUAL-06**: PR title validation CI step rejects titles that do not match Conventional Commits regex
 
 ### Testing
 

@@ -13,7 +13,7 @@ This roadmap transforms a single Docker container module in a flat directory str
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Migrate module to namespaced path and establish agent conventions
-- [ ] **Phase 2: Automated Releases** - Wire up terraform-module-releaser and validate end-to-end
+- [x] **Phase 2: Automated Releases** - Wire up terraform-module-releaser and validate end-to-end
 - [ ] **Phase 3: Documentation and Governance** - Enforce terraform-docs and establish CODEOWNERS, branch protection, PR/issue templates
 - [ ] **Phase 4: Quality Gates** - Add dedicated TFLint and Trivy security scanning to CI
 - [ ] **Phase 5: Testing** - Add native terraform test framework and pre-commit hooks
@@ -87,11 +87,11 @@ Plans:
 **Critical constraints**:
 - Phase 2 must validate with a real test commit before being marked complete (Pitfall 2 -- silent failure on two-level paths)
 - GITHUB_TOKEN must have write permissions (Pitfall 6 -- action exits green but creates nothing)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [x] 02-01-PLAN.md — Create release.yaml (terraform-module-releaser) and pr-title.yaml (semantic PR title validation)
+- [x] 02-02-PLAN.md — End-to-end validation: wiki init, validation PRs, confirmed modules/docker/container/v1.0.0 tag and GitHub Release
 
 ---
 
@@ -318,8 +318,8 @@ Phases execute in numeric order: 1 --> 2 --> 3 --> 4 --> 5 --> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 2/2 | Complete | 2026-02-28 |
-| 2. Automated Releases | 0/? | Not started | - |
+| 1. Foundation | 3/3 | Complete | 2026-02-28 |
+| 2. Automated Releases | 2/2 | Complete | 2026-03-01 |
 | 3. Documentation and Governance | 0/? | Not started | - |
 | 4. Quality Gates | 0/? | Not started | - |
 | 5. Testing | 0/? | Not started | - |

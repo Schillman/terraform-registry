@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-last_updated: "2026-02-28T22:03:47.971Z"
+status: in_progress
+last_updated: "2026-03-01T00:30:00.000Z"
 progress:
-  total_phases: 1
-  completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_phases: 6
+  completed_phases: 2
+  total_plans: 5
+  completed_plans: 5
 ---
 
 # Project State
@@ -18,33 +18,34 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Every module is production-ready out of the box -- versioned, documented, tested, and security-scanned automatically, so consumers can pin a `ref` and trust what they get.
-**Current focus:** Phase 1: Foundation
+**Current focus:** Phase 3 (next phase after automated releases)
 
 ## Current Position
 
-Phase: 1 of 6 (Foundation)
-Plan: 3 of 3 in current phase
-Status: Complete — Plan 01-03 complete
-Last activity: 2026-02-28 - Completed plan 01-03: SKILL.md autonomy matrix gap closure (AGNT-04)
+Phase: 2 of 6 (Automated Releases) — COMPLETE
+Plan: 2 of 2 in phase 02 complete
+Status: Phase 2 complete — modules/docker/container/v1.0.0 released, wiki written, PR title CI active
+Last activity: 2026-03-01 - Completed plan 02-02: end-to-end release validation confirmed
 
-Progress: [███░░░░░░░] ~15%
+Progress: [████░░░░░░] ~25%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 3 min
-- Total execution time: 0.1 hours
+- Total plans completed: 5
+- Average duration: 8 min
+- Total execution time: ~0.7 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 3 | 9 min | 3 min |
+| 02-automated-releases | 2 | ~30 min | ~15 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (6 min), 01-02 (2 min), 01-03 (1 min)
-- Trend: Fast (documentation-only plans)
+- Last 5 plans: 01-01 (6 min), 01-02 (2 min), 01-03 (1 min), 02-01 (~5 min), 02-02 (24 min)
+- Trend: Longer for live infrastructure validation (expected)
 
 *Updated after each plan completion*
 
@@ -69,20 +70,27 @@ Recent decisions affecting current work:
 - [01-03]: feat:/fix: commits are fully autonomous -- no human approval needed beyond passing workflow checks
 - [01-03]: feat!:/fix!: breaking changes require human to verify tfbreak output before merging
 - [01-03]: tfbreak named as the canonical breaking-change detection tool in SKILL.md
+- [02-01]: terraform-module-releaser@v2 triggers on pull_request (not push) — tag created on PR closed/merged event
+- [02-01]: Explicit permissions: contents: write, pull-requests: write required in release.yaml — GITHUB_TOKEN defaults to read-only
+- [02-01]: fetch-depth: 0 required in release.yaml — action uses full git history for tag detection
+- [02-01]: Module path detection confirmed safe — action scans recursively for .tf files, no depth limit
+- [02-02]: Workflows must land on main before a PR merge to fire the release action — cherry-pick from gsd branch required
+- [02-02]: Validation PR must touch a file inside modules/docker/container/ for releaser to detect the module — .github/ paths do not count
+- [02-02]: tests/example/ subdirectory is treated as independent module by terraform-module-releaser — produces extra tag modules/docker/container/tests/example/v1.0.0
 
 ### Critical Pitfalls (Top 3)
 
-1. **`depth=1` breaks version-pinned source URLs** -- Once new commits land after a release, `depth=1` with an older pinned tag fails. Remove from ALL version-pinned examples in Phase 1 before any consumer docs are published.
+1. **`depth=1` breaks version-pinned source URLs** -- Once new commits land after a release, `depth=1` with an older pinned tag fails. Do NOT use `?depth=1&ref=modules/docker/container/v1.0.0` or any variant.
 2. **BREAKING CHANGE signal lost in squash merges** -- Agents write `BREAKING CHANGE:` in body footers; squash-merge discards the body. Mandate `feat!:`/`fix!:` shorthand in SKILL.md AND validate PR titles with CI regex check.
-3. **terraform-module-releaser silent failure on two-level paths** -- May silently skip modules it cannot find, exiting green and creating nothing. Push a test `feat:` commit immediately after wiring up the action and confirm a tag is created.
+3. **Workflows must be on main to fire** -- CI workflows in GitHub Actions only run if they exist in the target branch at merge time. Ensure release.yaml and pr-title.yaml are merged to main before expecting them to run.
 
 ### Pending Todos
 
-None yet.
+None.
 
 ### Blockers/Concerns
 
-None yet.
+None.
 
 ### Quick Tasks Completed
 
@@ -92,7 +100,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-28
-Stopped at: Completed 01-03-PLAN.md — SKILL.md autonomy matrix gap closure (AGNT-04)
+Last session: 2026-03-01
+Stopped at: Completed 02-02-PLAN.md — end-to-end release validation, modules/docker/container/v1.0.0 confirmed
 Resume file: None
-Next action: Phase 1 complete — proceed to Phase 2 (Release Automation)
+Next action: Phase 2 complete — proceed to Phase 3
