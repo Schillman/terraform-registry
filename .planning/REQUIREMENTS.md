@@ -7,12 +7,12 @@
 
 ### Structure
 
-- [ ] **STRC-01**: Modules live at `modules/{provider}/{resource}` (namespaced, max 3 levels)
-- [ ] **STRC-02**: Every module contains `main.tf`, `variables.tf`, `outputs.tf`, `versions.tf`, `README.md`, and `tests/`
-- [ ] **STRC-03**: `versions.tf` (not `terraform.tf`) declares the `terraform {}` block and provider requirements
-- [ ] **STRC-04**: Terraform version constraint is `~> 1.9` (not `~> 1.5`) across all modules
-- [ ] **STRC-05**: Existing Docker module migrated from `modules/terraform-docker-container/` to `modules/docker/container/`
-- [ ] **STRC-06**: Old module directory preserved as stub with deprecation notice; old tags not deleted
+- [x] **STRC-01**: Modules live at `modules/{provider}/{resource}` (namespaced, max 3 levels)
+- [x] **STRC-02**: Every module contains `main.tf`, `variables.tf`, `outputs.tf`, `versions.tf`, `README.md`, and `tests/`
+- [x] **STRC-03**: `versions.tf` (not `terraform.tf`) declares the `terraform {}` block and provider requirements
+- [x] **STRC-04**: Terraform version constraint is `~> 1.9` (not `~> 1.5`) across all modules
+- [x] **STRC-05**: Existing Docker module migrated from `modules/terraform-docker-container/` to `modules/docker/container/`
+- [x] **STRC-06**: Old module directory fully deleted (user decision: no stub needed); old tags v0.0.1 and v1.0 preserved
 
 ### Agent Conventions
 
