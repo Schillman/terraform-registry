@@ -244,8 +244,7 @@ Plans:
 
 | Requirement | Phase | Description |
 |-------------|-------|-------------|
-| STRC-01 | 1 | Namespaced module structure |
-| STRC-02 | 1 | Module file inventory |
+| STRC-01 | 1 | 3/3 | Complete   | 2026-02-28 | 1 | Module file inventory |
 | STRC-03 | 1 | `versions.tf` naming |
 | STRC-04 | 1 | Terraform `~> 1.9` constraint |
 | STRC-05 | 1 | Docker module migration |

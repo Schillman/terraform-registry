@@ -102,17 +102,17 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| STRC-01 | Phase 1 | Pending |
-| STRC-02 | Phase 1 | Pending |
-| STRC-03 | Phase 1 | Pending |
-| STRC-04 | Phase 1 | Pending |
-| STRC-05 | Phase 1 | Pending |
-| STRC-06 | Phase 1 | Pending |
-| AGNT-01 | Phase 1 | Pending |
-| AGNT-02 | Phase 1 | Pending |
-| AGNT-03 | Phase 1 | Pending |
-| AGNT-04 | Phase 1 | Pending |
-| AGNT-05 | Phase 1 | Pending |
+| STRC-01 | Phase 1 | Complete |
+| STRC-02 | Phase 1 | Complete |
+| STRC-03 | Phase 1 | Complete |
+| STRC-04 | Phase 1 | Complete |
+| STRC-05 | Phase 1 | Complete |
+| STRC-06 | Phase 1 | Complete |
+| AGNT-01 | Phase 1 | Complete |
+| AGNT-02 | Phase 1 | Complete |
+| AGNT-03 | Phase 1 | Complete |
+| AGNT-04 | Phase 1 | Complete |
+| AGNT-05 | Phase 1 | Complete |
 | REL-01 | Phase 2 | Pending |
 | REL-02 | Phase 2 | Pending |
 | REL-03 | Phase 2 | Pending |
@@ -143,7 +143,7 @@
 | GOV-04 | Phase 3 | Pending |
 | GOV-05 | Phase 3 | Pending |
 | MAINT-01 | Phase 6 | Pending |
-| MAINT-02 | Phase 1 | Pending |
+| MAINT-02 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 41 total
