@@ -96,18 +96,22 @@ Plans:
 ---
 
 ### Phase 3: Documentation and Governance
-**Goal**: Module READMEs are always current (auto-generated from source), structural repo files are protected from unauthorized changes, and agent PRs for routine changes merge without human intervention
+**Goal**: Module READMEs are always current (auto-generated from source), breaking changes are detected before they reach consumers, structural repo files are protected from unauthorized changes, and agent PRs for routine changes merge without human intervention
 **Depends on**: Phase 2 (documentation references version tags that must exist; governance protects a pipeline that must be working)
-**Requirements**: DOCS-01, DOCS-02, DOCS-03, DOCS-04, DOCS-05, GOV-01, GOV-02, GOV-03, GOV-04, GOV-05
+**Requirements**: DOCS-01, DOCS-02, DOCS-03, DOCS-04, DOCS-05, DOCS-06, GOV-01, GOV-02, GOV-03, GOV-04, GOV-05
 **Success Criteria** (what must be TRUE):
   1. Module README contains auto-generated inputs/outputs section between `<!-- BEGIN_TF_DOCS -->` and `<!-- END_TF_DOCS -->` markers, kept current by CI
   2. The terraform-docs CI commit uses `[skip ci]` in its commit message (no infinite CI loops)
-  3. CODEOWNERS requires human review for `/.github/`, `/SKILL.md`, `/CLAUDE.md` but does NOT cover `modules/` (agent autonomy preserved)
-  4. An agent `feat:` PR that passes all CI checks merges automatically without human review
-  5. PR template includes Conventional Commits checklist; issue templates exist for bug reports and new module requests
+  3. `TAGS.json` is committed to each module directory by the release workflow, containing module name, release version, and latest commit author
+  4. `tfbreak` runs in CI on PRs to detect breaking Terraform configuration changes; PRs with breaking changes are flagged for human review
+  5. CODEOWNERS requires human review for `/.github/`, `/SKILL.md`, `/CLAUDE.md` but does NOT cover `modules/` (agent autonomy preserved)
+  6. An agent `feat:` PR that passes all CI checks merges automatically without human review
+  7. PR template includes Conventional Commits checklist; issue templates exist for bug reports and new module requests
 **Key Deliverables**:
   - `.terraform-docs.yml` at repo root (new)
   - terraform-docs CI step (new workflow or addition to existing)
+  - `TAGS.json` generation step in `release.yaml` (new)
+  - `tfbreak` CI step in lint or governance workflow (new)
   - `CODEOWNERS` (new)
   - Branch protection rules on `main` (configured via GitHub UI or API)
   - `.github/workflows/auto-merge.yaml` or equivalent (new)
@@ -117,15 +121,18 @@ Plans:
   - Root `README.md` updated with module listing, source URL pattern, and version badge
 **UAT**:
   - Modify a variable in `modules/docker/container/variables.tf`, push, and confirm CI auto-commits updated README with `[skip ci]` -- no second CI run triggered
+  - Confirm `modules/docker/container/TAGS.json` is created/updated after a release with correct module name, version, and author fields
+  - Open a PR that introduces a breaking change (remove a required variable) and confirm tfbreak flags it for human review
   - Open a PR that modifies `.github/workflows/release.yaml` and confirm CODEOWNERS requires human review
   - Open a PR that modifies `modules/docker/container/main.tf` and confirm CODEOWNERS does NOT require human review
   - Confirm branch protection on `main`: no direct pushes, no force pushes, CI checks required
   - Confirm PR template renders when creating a new PR
-**Research flag**: None -- terraform-docs inject mode and GitHub branch protection are well-documented
+**Research flag**: tfbreak is a newer tool -- verify current installation method, CI integration pattern, and output format before implementation
 
 **Critical constraints**:
 - CODEOWNERS must NOT cover `modules/` (Pitfall 8 -- blocks agent auto-merge)
 - terraform-docs CI commit must use `[skip ci]` (Pitfall 5 -- infinite loop)
+- tfbreak is complementary to tflint, not a replacement -- both must run
 **Plans**: TBD
 
 Plans:
@@ -142,7 +149,7 @@ Plans:
   1. `terraform fmt -check` runs recursively on all `.tf` files in CI and fails the PR if formatting is wrong
   2. TFLint runs as a dedicated CI step (not super-linter's bundled version) with `.tflint.hcl` config and explicit plugin loading
   3. Trivy IaC scan blocks PRs on CRITICAL and HIGH severity findings; justified suppressions are documented in `.trivyignore`
-  4. Trivy SARIF output appears in the GitHub Security tab
+  4. Trivy SARIF output appears in the GitHub Security tab AND a PR comment is posted with the scan results
   5. A PR introducing a known CRITICAL misconfiguration is blocked by CI
 **Key Deliverables**:
   - `.tflint.hcl` at repo root (new)
@@ -261,7 +268,8 @@ Plans:
 | DOCS-03 | 3 | `.terraform-docs.yml` config |
 | DOCS-04 | 3 | Root README module listing |
 | DOCS-05 | 3 | SKILL.md Dependabot maintenance note |
-| GOV-01 | 3 | CODEOWNERS (excludes `modules/`) |
+| DOCS-06 | 3 | TAGS.json per module with release metadata |
+| GOV-01 | 3 | tfbreak breaking change detection in CI |
 | GOV-02 | 3 | Branch protection on `main` |
 | GOV-03 | 3 | Auto-merge for agent PRs |
 | GOV-04 | 3 | PR template |
@@ -279,7 +287,7 @@ Plans:
 | TEST-06 | 5 | `.pre-commit-config.yaml` |
 | MAINT-01 | 6 | Dependabot configuration |
 
-**Coverage: 41/41 v1 requirements mapped. No orphans.**
+**Coverage: 43/43 v1 requirements mapped. No orphans.**
 
 ### Cross-Phase Dependency Chain
 
