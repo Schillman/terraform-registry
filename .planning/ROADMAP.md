@@ -53,11 +53,11 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Critical constraints**:
 - This phase is an unconditional prerequisite. No other phase can start until the module is at `modules/docker/container/` and `SKILL.md` exists
 - `depth=1` must NOT appear in any version-pinned source URL examples (Pitfall 3)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md — Migrate Docker container module to modules/docker/container/ with all required files, delete old directory
+- [ ] 01-02-PLAN.md — Create SKILL.md (agent operating manual), CLAUDE.md (Claude Code pointer), .markdownlintignore
 
 ---
 
