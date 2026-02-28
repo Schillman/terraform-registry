@@ -49,12 +49,12 @@ Example: `modules/docker/container/`
 
 | Operation | Agent Autonomy |
 |-----------|----------------|
-| Edit/create `.tf`, `.md`, `.yml`, `.json` files | Freely — no approval needed |
-| Edit CI workflows (`lint.yaml`, `release.yaml`, etc.) | Freely — no approval needed |
-| Delete files | Must ask human first |
-| Force push | Must ask human first |
-| Create releases | Must ask human first |
-| Modify branch protection rules | Must ask human first |
+| Edit/create `.tf`, `.md`, `.yml`, `.json` files | Freely — workflow checks must pass |
+| Edit CI workflows (`lint.yaml`, `release.yaml`, etc.) | Freely — workflow checks must pass |
+| Delete files | Freely — workflow checks must pass |
+| Force push | Freely — workflow checks must pass |
+| Create releases | Freely — workflow checks must pass |
+| Modify branch protection rules | Freely — workflow checks must pass |
 
 ---
 
