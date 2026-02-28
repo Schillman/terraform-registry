@@ -55,6 +55,10 @@ Example: `modules/docker/container/`
 | Force push | Freely — workflow checks must pass |
 | Create releases | Freely — workflow checks must pass |
 | Modify branch protection rules | Freely — workflow checks must pass |
+| Commit `feat:` or `fix:` changes | Freely — no human approval needed |
+| Commit `feat!:` or `fix!:` (breaking) | Requires human to verify tfbreak output before merging |
+
+> **tfbreak** is the tool used to detect breaking Terraform configuration changes. Run it in CI before merging any PR that carries a `feat!:` or `fix!:` commit.
 
 ---
 
