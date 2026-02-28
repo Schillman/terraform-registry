@@ -12,7 +12,7 @@ provider "docker" {
 
 
 module "ubuntu" {
-  source = "github.com/Schillman/terraform-registry//modules/terraform-docker-container?ref=v1.0"
+  source = "../../"
 
   name              = format("server-%s", "tst")
   docker_image_name = "ubuntu"
