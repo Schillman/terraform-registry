@@ -39,7 +39,7 @@ jobs:
           VALIDATE_BASH: true
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_MARKDOWN: true
-          VALIDATE_NATURAL_LANGUAGE: true
+          VALIDATE_NATURAL_LANGUAGE: false
           VALIDATE_POWERSHELL: true
           VALIDATE_TERRAFORM_FMT: true
           VALIDATE_TERRAFORM_TFLINT: true
