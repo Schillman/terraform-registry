@@ -1,6 +1,29 @@
 # Terraform Docker Container Module
 
-## Usage
+Provisions a Docker container with optional volumes, ports, environment variables, and health checks.
+
+## Consumer Usage
+
+Source this module from the registry using a version-pinned ref:
+
+```hcl
+module "container" {
+  source = "github.com/Schillman/terraform-registry//modules/docker/container?ref=modules/docker/container/v1.0.0"
+
+  name              = "my-app"
+  docker_image_name = "nginx:latest"
+  network_mode      = "bridge"
+
+  ports = [{
+    internal = 80
+    external = 8080
+  }]
+}
+```
+
+> **Note:** Do not append `depth=1` to version-pinned refs. See SKILL.md for details.
+
+## Development Usage
 
 ```hcl
 module "ubuntu" {
