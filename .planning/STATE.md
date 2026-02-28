@@ -45,7 +45,7 @@ Recent decisions affecting current work:
 - [Init]: Namespaced module structure `modules/{provider}/{resource}` -- terraform-module-releaser requires it
 - [Init]: `versions.tf` (not `terraform.tf`) for the `terraform {}` block -- community standard since Terraform 0.13
 - [Init]: Direct Git sourcing (not Terraform Registry) -- no registry infrastructure to maintain
-- [Init]: Mixed agent autonomy -- routine changes autonomous, breaking changes require human PR approval
+- [Init]: Full agent autonomy -- all operations proceed autonomously when workflow checks pass
 - [Init]: Dependabot over Renovate -- simpler, native GitHub integration
 - [01-01]: No deprecation stub for modules/terraform-docker-container/ -- full deletion, user decision
 - [01-01]: `image_id` output uses `docker_image.main.image_id` (not `.id`) -- user-locked attribute, different provider attributes
