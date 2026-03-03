@@ -24,4 +24,4 @@ jobs:
       - name: Terraform Module Releaser
         uses: techpivot/terraform-module-releaser@v2
         with:
-          module-path-ignore: "**/examples/**,**/test/**,root-modules"
+          module-path-ignore: "**/examples/**,**/test/**,examples/**"
