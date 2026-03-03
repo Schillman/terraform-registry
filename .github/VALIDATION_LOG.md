@@ -27,3 +27,5 @@ The initial validation PR (#10) triggered the feat: commit but did not touch any
 A second PR (#11) touching `modules/docker/container/README.md` triggered the v1.0.0 release.
 Both the release.yaml and pr-title.yaml workflows were cherry-picked to main from the
 phase-02 branch before PR #11 was opened.
+
+<!-- gap-closure test marker -->
