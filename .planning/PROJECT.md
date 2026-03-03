@@ -2,7 +2,13 @@
 
 ## What This Is
 
-A public, professional Terraform module monorepo that hosts reusable infrastructure modules for Docker/self-hosted and Azure environments. Modules are consumed via direct Git sourcing with shallow clones (`ref` + `depth=1`), making discovery and version pinning the primary interface. The repo is designed to be operated primarily by AI agents (Claude, GitHub Copilot) with minimal human intervention on routine changes.
+A public, professional Terraform module monorepo that hosts reusable infrastructure modules for Docker/self-hosted
+and Azure environments. Modules are consumed via direct Git sourcing with version-pinned `ref` tags, making
+discovery and version pinning the primary interface. The repo is designed to be operated primarily by AI agents
+(Claude, GitHub Copilot) with minimal human intervention on routine changes.
+
+**Shipped v1.0:** `modules/docker/container/v1.0.0` — namespaced module structure, automated semver releases via
+terraform-module-releaser, conventional commit enforcement, full agent operating conventions in `SKILL.md`.
 
 ## Core Value
 
@@ -16,23 +22,21 @@ Every module in this repo must be production-ready out of the box — versioned,
 - ✓ GitHub Actions CI/CD pipeline (terraform fmt, tflint, markdown lint) — existing
 - ✓ Example-based testing pattern (`tests/example/`) — existing
 - ✓ Docker container module implemented — existing
+- ✓ Migrate existing Docker module to namespaced structure (`modules/docker/container`) — Phase 1
+- ✓ Integrate terraform-module-releaser for automatic versioning, GitHub releases, and wiki generation — Phase 2
+- ✓ Define and document Conventional Commits convention for agents (feat/fix/chore → semver impact) — Phase 2
 
 ### Active
 
-- [ ] Take action on the concerns located in `.planning/codebase/CONCERNS.md` potentially solve the concerns in a branch.
-- [ ] Migrate existing Docker module to namespaced structure (`modules/docker/container`)
-- [ ] Integrate terraform-module-releaser for automatic versioning, GitHub releases, and wiki generation
-- [ ] Add Trivy security scanning to CI/CD pipeline
-- [ ] Add terraform-docs enforcement (auto-generate README.md from module variables/outputs)
-- [ ] Add native `terraform test` framework support per module
-- [ ] Add Terratest (Go) integration test scaffolding per module
-- [ ] Add tfbreak to CI/CD pipeline - [User Guide](https://github.com/jokarl/tfbreak-core/blob/main/docs/user-guide/README.md)
-- [ ] Add pre-commit hook configuration for local dev quality gates
-- [ ] Configure Dependabot for GitHub Actions and Terraform provider version updates (if possible use gh cli)
-- [ ] Add GitHub PR and issue templates
-- [ ] Configure branch protection rules
-- [ ] Create `SKILL.md` — AI agent operational guide for this repo
-- [ ] Define and document Conventional Commits convention for agents (feat/fix/chore → semver impact)
+- [ ] Add terraform-docs enforcement (auto-generate README.md from module variables/outputs) — Phase 3
+- [ ] Add tfbreak breaking-change detection to CI — Phase 3
+- [ ] Configure CODEOWNERS + branch protection + auto-merge for agent PRs — Phase 3
+- [ ] Add PR/issue templates — Phase 3
+- [ ] Add dedicated TFLint + Trivy security scanning to CI — Phase 4
+- [ ] Add native `terraform test` framework per module + test matrix workflow — Phase 5
+- [ ] Add pre-commit hook configuration mirroring CI — Phase 5
+- [ ] Configure Dependabot for GitHub Actions + Terraform providers — Phase 6
+- [ ] Review concerns in `.planning/codebase/CONCERNS.md`
 
 ### Out of Scope
 
@@ -43,26 +47,32 @@ Every module in this repo must be production-ready out of the box — versioned,
 
 ## Context
 
-**Existing code:** One Docker container module at `modules/terraform-docker-container/` — migrating to `modules/docker/container/` as part of this initiative.
+**Current state (v1.0):** `modules/docker/container/` live at `v1.0.0`. Automated releases via
+terraform-module-releaser@v2. Agent conventions fully documented in `SKILL.md`/`CLAUDE.md`.
 
-**Consumption pattern:** All consumers use direct Git sourcing with shallow clones:
+**Consumption pattern:** All consumers use direct Git sourcing with version-pinned `ref` (no `depth=1`):
+
 ```hcl
 module "container" {
-  source = "git::https://github.com/Schillman/terraform-registry.git//modules/docker/container?depth=1&ref=modules/docker/container/v1.2.0"
+  source = "git::https://github.com/Schillman/terraform-registry.git//modules/docker/container?ref=modules/docker/container/v1.0.0"
 }
 ```
 
-**Module tagging:** terraform-module-releaser creates module-scoped tags (e.g., `modules/docker/container/v1.2.0`). The `ref` parameter in consumer configs must match this pattern.
+**Module tagging:** terraform-module-releaser creates module-scoped tags (e.g., `modules/docker/container/v1.0.0`).
+The `ref` parameter in consumer configs must match this pattern. `depth=1` is forbidden on version-pinned refs —
+breaks once newer commits land after a release.
 
-**Agent model:** This repo is primarily operated by AI agents (Claude, GitHub Copilot). Agents create/update modules, write tests, fix CI failures, and open PRs. Routine changes (feat/fix) are autonomous; breaking changes require human PR approval before merge.
+**Agent model:** Agents operate fully autonomously for `feat:`/`fix:` commits (all CI passes = merge). Breaking
+changes (`feat!:`/`fix!:`) require human to verify tfbreak output before merging.
 
 **Versioning:** Conventional Commits drive auto-versioning via terraform-module-releaser:
+
 - `feat:` → minor bump (1.1.0)
 - `fix:` → patch bump (1.0.1)
-- `BREAKING CHANGE:` in footer → major bump (2.0.0)
-- `chore:`, `docs:`, `test:` → no version bump
+- `feat!:`/`fix!:` → major bump (2.0.0) — use shorthand, NOT `BREAKING CHANGE:` footer (lost in squash merges)
+- `chore:`, `docs:`, `refactor:`, `test:`, `ci:` → patch bump (SKILL.md override from default no-release)
 
-**SKILL.md:** A machine-readable operational guide that agents read before working in this repo. Covers module scaffold patterns, commit conventions, CI/CD pipeline, PR creation rules, and testing requirements.
+**SKILL.md:** Machine-readable agent operating manual at repo root. Read before any work.
 
 ## Constraints
 
@@ -71,18 +81,19 @@ module "container" {
 - **Testing**: Every module requires example config + terraform test file + Terratest stub
 - **Commits**: Must follow Conventional Commits — agents and humans alike
 - **Security**: Trivy must pass before merge — no known HIGH/CRITICAL CVEs in IaC configs
-- **Compatibility**: Terraform >= 1.6 required (for native terraform test support)
+- **Compatibility**: Terraform >= 1.9 required (`required_version = "~> 1.9"` in all `versions.tf`)
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Namespaced module structure (`modules/{provider}/{resource}`) | terraform-module-releaser recommends it; cleaner for multi-provider repos | — Pending |
-| terraform-module-releaser for versioning | Zero-config, GitHub-native, no external services needed | — Pending |
+| Namespaced module structure (`modules/{provider}/{resource}`) | terraform-module-releaser recommends it; cleaner for multi-provider repos | ✓ Confirmed Phase 1 — modules/docker/container live |
+| terraform-module-releaser for versioning | Zero-config, GitHub-native, no external services needed | ✓ Confirmed Phase 2 — v1.0.0 tag and Release produced |
 | Dependabot over Renovate | Simpler, native GitHub integration, no extra config files | — Pending |
-| Direct Git sourcing (not Terraform Registry) | No registry infrastructure to maintain; `ref` + `depth=1` is sufficient | — Pending |
-| Mixed agent autonomy | Routine changes autonomous; BREAKING CHANGE commits require human PR approval | — Pending |
-| SKILL.md for agent guidance | Agents need explicit operational context; SKILL.md is read before any work | — Pending |
+| Direct Git sourcing (not Terraform Registry) | No registry infrastructure to maintain; `ref` + `depth=1` is sufficient | ✓ Confirmed Phase 2 — consumer source URL established |
+| Mixed agent autonomy | Routine changes autonomous; BREAKING CHANGE commits require human PR approval | ✓ Confirmed Phase 2 — pr-title.yaml enforces convention |
+| SKILL.md for agent guidance | Agents need explicit operational context; SKILL.md is read before any work | ✓ Confirmed — SKILL.md operational |
+| module-path-ignore for tests/example | terraform-module-releaser detects tests/example/ as an independent module — must be excluded | ✓ Added Phase 2 — prevents extra tags on test paths |
 
 ---
-*Last updated: 2026-02-28 after initialization*
+*Last updated: 2026-03-03 after v1.0 milestone*
