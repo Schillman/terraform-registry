@@ -27,3 +27,18 @@ The initial validation PR (#10) triggered the feat: commit but did not touch any
 A second PR (#11) touching `modules/docker/container/README.md` triggered the v1.0.0 release.
 Both the release.yaml and pr-title.yaml workflows were cherry-picked to main from the
 phase-02 branch before PR #11 was opened.
+
+## PR Title Rejection Evidence (QUAL-06 Gap Closure)
+
+**Date:** 2026-03-03
+**Gap closed:** QUAL-06 — PR title rejection not previously demonstrated
+
+- **Test PR:** #12 — opened with title "did some stuff"
+- **Lint PR Title result:** FAILURE (Validate PR Title check, conclusion=failure)
+- **GitHub Actions run ID:** 22642126597
+- **Run URL:** <https://github.com/Schillman/terraform-registry/actions/runs/22642126597>
+- **Closed without merging:** Yes
+
+The `pr-title.yaml` workflow (using `amannn/action-semantic-pull-request@v5`) correctly
+rejected the non-conventional title "did some stuff" with a CI failure conclusion.
+QUAL-06 is now empirically demonstrated.
