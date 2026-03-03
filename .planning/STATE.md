@@ -80,10 +80,11 @@ None yet.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 1 | We can remove any mention of requiring human approval, as long as all workflow checks has passed no human approval needed | 2026-02-28 | 6a14254 | [1-we-can-remove-any-mention-of-requiring-h](.planning/quick/1-we-can-remove-any-mention-of-requiring-h/) |
+| 2 | Remove all planning-layer references to standalone terraform-docs — terraform-module-releaser handles doc generation natively | 2026-03-03 | 7f78b3c | [2-remove-terraform-docs-references-from-pl](.planning/quick/2-remove-terraform-docs-references-from-pl/) |
 
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: v1.0 milestone archived — ROADMAP collapsed, REQUIREMENTS archived, git tagged v1.0
+Stopped at: Completed quick task 2 — removed terraform-docs from planning documents
 Resume file: None
 Next action: `/gsd:new-milestone` — start v1.1 planning cycle
