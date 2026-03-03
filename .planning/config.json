@@ -12,6 +12,6 @@
     "nyquist_validation": false
   },
   "git": {
-    "branching_strategy": "none"
+    "branching_strategy": "phase"
   }
 }
