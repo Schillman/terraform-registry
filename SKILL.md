@@ -34,9 +34,9 @@ Every module under `modules/{provider}/{resource}/` must contain exactly these s
 | ---------------- | --------------------------------------------------------------------------------------------------- |
 | `main.tf`        | Resource definitions                                                                                |
 | `variables.tf`   | Input variable declarations                                                                         |
-| `outputs.tf`     | Output value declarations (required even if minimal; needed for terraform-docs)                     |
+| `outputs.tf`     | Output value declarations (required even if minimal; needed for consumers to compose modules)        |
 | `versions.tf`    | `terraform {}` block with `required_version` and provider `required_providers` (NOT `terraform.tf`) |
-| `README.md`      | Module documentation — must include terraform-docs inject markers                                   |
+| `README.md`      | Module documentation — summarise inputs, outputs, and usage example                                 |
 | `tests/`         | Test directory — `unit.tftest.hcl` and `tests/example/` added in Phase 5                            |
 
 Target directory pattern: `modules/{provider}/{resource}/`

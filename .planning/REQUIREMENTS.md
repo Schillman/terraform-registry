@@ -33,9 +33,7 @@
 
 ### Documentation
 
-- [ ] **DOCS-01**: Every module `README.md` contains terraform-docs inject markers (`<!-- BEGIN_TF_DOCS -->` / `<!-- END_TF_DOCS -->`)
-- [ ] **DOCS-02**: CI auto-generates and commits the inputs/outputs section of each module README via `terraform-docs` inject mode with `[skip ci]` commit message
-- [ ] **DOCS-03**: `.terraform-docs.yml` at repo root defines consistent output format (sorted, type/description/required columns)
+- **Note:** Documentation generation (inputs/outputs tables) is handled by `terraform-module-releaser` via GitHub Wiki. No standalone `terraform-docs` CI step is needed.
 - [ ] **DOCS-04**: Root `README.md` lists all available modules with source URL pattern and version badge
 - [ ] **DOCS-05**: `SKILL.md` includes Dependabot maintenance note: one `terraform` entry required per new module directory
 - [ ] **DOCS-06**: The release workflow generates a `TAGS.json` file and commits it in each module directory containing the module name, release version, and the author of the latest commit. Modules that support a `tags` input variable should reference this file and be merged with the consumer inputs, so that deployed resources are automatically tagged with these module specific details.
@@ -56,7 +54,7 @@
 - [ ] **TEST-03**: `tests/example/versions.tf` and `tests/example/.terraform.lock.hcl` committed for reproducible CI
 - [ ] **TEST-04**: `test.yaml` matrix workflow detects changed modules via `git diff` and fans out `terraform test` per changed module
 - [ ] **TEST-05**: `hashicorp/setup-terraform@v3` configured with `terraform_wrapper: false` for future Terratest compatibility
-- [ ] **TEST-06**: `.pre-commit-config.yaml` mirrors CI: `terraform fmt`, `terraform validate`, `tflint`, `terraform-docs`, `trivy`, `conventional-pre-commit` (commit-msg stage)
+- [ ] **TEST-06**: `.pre-commit-config.yaml` mirrors CI: `terraform fmt`, `terraform validate`, `tflint`, `trivy`, `conventional-pre-commit` (commit-msg stage)
 
 ### Governance
 
@@ -119,9 +117,6 @@
 | REL-04 | Phase 2 | Pending |
 | REL-05 | Phase 2 | Pending |
 | REL-06 | Phase 2 | Pending |
-| DOCS-01 | Phase 3 | Pending |
-| DOCS-02 | Phase 3 | Pending |
-| DOCS-03 | Phase 3 | Pending |
 | DOCS-04 | Phase 3 | Pending |
 | DOCS-05 | Phase 3 | Pending |
 | DOCS-06 | Phase 3 | Pending |
@@ -146,8 +141,8 @@
 | MAINT-02 | Phase 1 | Complete |
 
 **Coverage:**
-- v1 requirements: 41 total
-- Mapped to phases: 41
+- v1 requirements: 38 total
+- Mapped to phases: 38
 - Unmapped: 0 ✓
 
 ---
