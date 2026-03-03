@@ -36,7 +36,7 @@ phase-02 branch before PR #11 was opened.
 - **Test PR:** #12 — opened with title "did some stuff"
 - **Lint PR Title result:** FAILURE (Validate PR Title check, conclusion=failure)
 - **GitHub Actions run ID:** 22642126597
-- **Run URL:** https://github.com/Schillman/terraform-registry/actions/runs/22642126597
+- **Run URL:** <https://github.com/Schillman/terraform-registry/actions/runs/22642126597>
 - **Closed without merging:** Yes
 
 The `pr-title.yaml` workflow (using `amannn/action-semantic-pull-request@v5`) correctly
