@@ -23,11 +23,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: "~>1.9"
-
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
@@ -57,29 +52,23 @@ jobs:
           while IFS= read -r MODULE; do
             [ -z "$MODULE" ] && continue
 
-            # Find latest release tag for this module
+            # Find latest release tag for this module (format: modules/{provider}/{resource}/v{semver})
             LATEST_TAG=$(git tag --list "${MODULE}/v*" --sort=-version:refname | head -1)
 
             if [ -z "$LATEST_TAG" ]; then
-              echo "No previous release tag found for ${MODULE}, skipping tfbreak"
+              echo "No previous release tag found for ${MODULE}, skipping"
               continue
             fi
 
-            echo "Comparing ${MODULE} against baseline tag: ${LATEST_TAG}"
+            echo "Comparing ${MODULE} against baseline: ${LATEST_TAG}"
 
-            # Extract baseline module files into a temp directory
-            TMP_DIR=$(mktemp -d)
-            mkdir -p "${TMP_DIR}/${MODULE}"
-            git archive "${LATEST_TAG}" "${MODULE}" \
-              | tar -x -C "${TMP_DIR}" 2>/dev/null || true
-
-            # Run tfbreak comparing baseline vs current working tree
-            RESULT=$(tfbreak "${TMP_DIR}/${MODULE}" "${MODULE}" 2>&1) || {
+            # Use tfbreak monorepo ref:path syntax — no manual git archive needed
+            # --base <tag>:<module-path> compares the tag's subdirectory against the working tree
+            RESULT=$(tfbreak check --base "${LATEST_TAG}:${MODULE}" "./${MODULE}" 2>&1) || {
               BREAKING=true
-              BREAKING_DETAILS="${BREAKING_DETAILS}\n**${MODULE}:**\n\`\`\`\n${RESULT}\n\`\`\`\n"
+              BREAKING_DETAILS="${BREAKING_DETAILS}\n**\`${MODULE}\`:**\n\`\`\`\n${RESULT}\n\`\`\`\n"
             }
 
-            rm -rf "${TMP_DIR}"
           done <<< "${{ steps.changed-modules.outputs.modules }}"
 
           echo "breaking=${BREAKING}" >> "$GITHUB_OUTPUT"
