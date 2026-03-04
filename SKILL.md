@@ -6,7 +6,8 @@ Read this file before doing any work in this repository. It is the single source
 
 ## 1. Commit Conventions
 
-All commits follow [Conventional Commits](https://www.conventionalcommits.org/). and are made to a branched based on phase you're working on. Below follows a table that maps commit type to semver impact.
+All commits follow [Conventional Commits](https://www.conventionalcommits.org/) and are made to a branch based on the phase you're working on.
+Below is the commit type to semver impact mapping:
 
 | Commit Type                              | Semver Impact      |
 | ---------------------------------------- | ------------------ |
