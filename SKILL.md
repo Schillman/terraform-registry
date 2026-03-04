@@ -6,7 +6,7 @@ Read this file before doing any work in this repository. It is the single source
 
 ## 1. Commit Conventions
 
-All commits follow [Conventional Commits](https://www.conventionalcommits.org/). The table below maps commit type to semver impact.
+All commits follow [Conventional Commits](https://www.conventionalcommits.org/). and are made to a branched based on phase you're working on. Below follows a table that maps commit type to semver impact.
 
 | Commit Type                              | Semver Impact      |
 | ---------------------------------------- | ------------------ |
@@ -18,6 +18,7 @@ All commits follow [Conventional Commits](https://www.conventionalcommits.org/).
 | `test:`                                  | patch bump         |
 | `ci:`                                    | patch bump         |
 | `feat!:` or `fix!:` (breaking shorthand) | major bump (x.0.0) |
+| `*!:` (exclamationmarks it as breaking)  | major bump (x.0.0) |
 | `BREAKING CHANGE:` footer                | major bump (x.0.0) |
 
 **Important:** Prefer `feat!:` or `fix!:` shorthand over `BREAKING CHANGE:` footer.
@@ -34,7 +35,7 @@ Every module under `modules/{provider}/{resource}/` must contain exactly these s
 | ---------------- | --------------------------------------------------------------------------------------------------- |
 | `main.tf`        | Resource definitions                                                                                |
 | `variables.tf`   | Input variable declarations                                                                         |
-| `outputs.tf`     | Output value declarations (required even if minimal; needed for consumers to compose modules)        |
+| `outputs.tf`     | Output value declarations (required even if minimal; needed for consumers to compose modules)       |
 | `versions.tf`    | `terraform {}` block with `required_version` and provider `required_providers` (NOT `terraform.tf`) |
 | `README.md`      | Module documentation — summarise inputs, outputs, and usage example                                 |
 | `tests/`         | Test directory — `unit.tftest.hcl` and `tests/example/` added in Phase 5                            |
@@ -77,3 +78,25 @@ module "container" {
 Once new commits land after a release tag, `depth=1` with an older pinned tag will fail because
 Git cannot find the tag object in a shallow clone that does not include it.
 Do **not** use `?depth=1&ref=modules/docker/container/v1.0.0` or any variant.
+
+---
+
+## 5. Dependabot Maintenance
+
+Dependabot **does not recurse** — one explicit entry is required per module directory.
+
+When adding a new module at `modules/{provider}/{resource}/`:
+
+1. Add a `terraform` entry to `.github/dependabot.yml` pointing to that exact directory
+2. Set the schedule to monthly (provider updates are infrequent)
+
+Example entry to add for each new module:
+
+```yaml
+  - package-ecosystem: "terraform"
+    directory: "/modules/{provider}/{resource}"
+    schedule:
+      interval: "monthly"
+```
+
+Failing to add this entry means provider version updates are not monitored for that module.
