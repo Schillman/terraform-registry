@@ -21,7 +21,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 
 ### 📋 v1.1 (Planned)
 
-- [ ] **Phase 3: Documentation and Governance** - Establish CODEOWNERS, branch protection,
+- [x] **Phase 3: Documentation and Governance** - Establish CODEOWNERS, branch protection, (completed 2026-03-04)
   PR/issue templates, and TAGS.json generation
 - [ ] **Phase 4: Quality Gates** - Add dedicated TFLint and Trivy security scanning to CI
 - [ ] **Phase 5: Testing** - Add native terraform test framework and pre-commit hooks
@@ -140,7 +140,7 @@ monitored for updates
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-02-28 |
 | 2. Automated Releases | 3/3 | Complete | 2026-03-03 |
-| 3. Documentation and Governance | 2/4 | In Progress|  |
+| 3. Documentation and Governance | 4/4 | Complete   | 2026-03-04 |
 | 4. Quality Gates | 0/? | Not started | - |
 | 5. Testing | 0/? | Not started | - |
 | 6. Maintenance Automation | 0/? | Not started | - |

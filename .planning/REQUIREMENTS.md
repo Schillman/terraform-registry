@@ -59,8 +59,8 @@
 ### Governance
 
 - [ ] **GOV-01**: Implement tfbreak to compare two Terraform configurations and reports breaking changes. tfbreak is complementary to tflint - use tflint for code quality and tfbreak for safe releases.
-- [ ] **GOV-02**: Branch protection on `main`: require CI checks, require up-to-date branch, no direct pushes, no force pushes
-- [ ] **GOV-03**: Auto-merge workflow merges agent `feat:`/`fix:` PRs that pass all CI checks without waiting for human review
+- [x] **GOV-02**: Branch protection on `main`: require CI checks, require up-to-date branch, no direct pushes, no force pushes
+- [x] **GOV-03**: Auto-merge workflow merges agent `feat:`/`fix:` PRs that pass all CI checks without waiting for human review
 - [ ] **GOV-04**: PR template includes Conventional Commits checklist and testing confirmation
 - [ ] **GOV-05**: Issue templates for bug reports and new module requests
 
@@ -133,8 +133,8 @@
 | TEST-05 | Phase 5 | Pending |
 | TEST-06 | Phase 5 | Pending |
 | GOV-01 | Phase 3 | Pending |
-| GOV-02 | Phase 3 | Pending |
-| GOV-03 | Phase 3 | Pending |
+| GOV-02 | Phase 3 | Complete |
+| GOV-03 | Phase 3 | Complete |
 | GOV-04 | Phase 3 | Pending |
 | GOV-05 | Phase 3 | Pending |
 | MAINT-01 | Phase 6 | Pending |
