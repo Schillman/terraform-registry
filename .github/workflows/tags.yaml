@@ -31,9 +31,11 @@ jobs:
           MODULE_PATH="${TAG%/*}"
           VERSION="${TAG##*/}"
           AUTHOR="${{ github.event.pusher.name }}"
-          echo "module_path=${MODULE_PATH}" >> "$GITHUB_OUTPUT"
-          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
-          echo "author=${AUTHOR}" >> "$GITHUB_OUTPUT"
+          {
+            echo "module_path=${MODULE_PATH}"
+            echo "version=${VERSION}"
+            echo "author=${AUTHOR}"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Write TAGS.json
         run: |

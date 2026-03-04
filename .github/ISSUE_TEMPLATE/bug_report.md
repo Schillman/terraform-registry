@@ -3,6 +3,7 @@ name: Bug Report
 about: Report a problem with a module
 labels: bug
 ---
+<!-- markdownlint-disable-file MD041 -->
 
 ## Module
 

@@ -39,9 +39,11 @@ jobs:
             | sed 's|/[^/]*\.tf$||' \
             | grep '^modules/' \
             | sort -u)
-          echo "modules<<EOF" >> "$GITHUB_OUTPUT"
-          echo "$CHANGED_MODULES" >> "$GITHUB_OUTPUT"
-          echo "EOF" >> "$GITHUB_OUTPUT"
+          {
+            echo "modules<<EOF"
+            echo "$CHANGED_MODULES"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Run tfbreak per changed module
         id: tfbreak

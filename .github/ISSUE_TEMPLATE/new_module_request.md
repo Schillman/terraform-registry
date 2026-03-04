@@ -3,6 +3,7 @@ name: New Module Request
 about: Request a new Terraform module be added to the registry
 labels: enhancement
 ---
+<!-- markdownlint-disable-file MD041 -->
 
 ## Provider
 
