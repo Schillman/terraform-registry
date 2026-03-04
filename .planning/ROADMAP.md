@@ -55,7 +55,13 @@ GOV-01, GOV-02, GOV-03, GOV-04, GOV-05
 - CODEOWNERS must NOT cover `modules/` (blocks agent auto-merge)
 - tfbreak is complementary to tflint, not a replacement — both must run
 
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — TAGS.json generation workflow (DOCS-06)
+- [ ] 03-02-PLAN.md — tfbreak breaking change detection workflow (GOV-01)
+- [ ] 03-03-PLAN.md — CODEOWNERS, auto-merge workflow, branch protection (GOV-02, GOV-03)
+- [ ] 03-04-PLAN.md — PR/issue templates, root README, SKILL.md Dependabot note (GOV-04, GOV-05, DOCS-04, DOCS-05)
 
 ---
 
@@ -134,7 +140,7 @@ monitored for updates
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-02-28 |
 | 2. Automated Releases | 3/3 | Complete | 2026-03-03 |
-| 3. Documentation and Governance | 0/? | Not started | - |
+| 3. Documentation and Governance | 0/4 | Planned | - |
 | 4. Quality Gates | 0/? | Not started | - |
 | 5. Testing | 0/? | Not started | - |
 | 6. Maintenance Automation | 0/? | Not started | - |
