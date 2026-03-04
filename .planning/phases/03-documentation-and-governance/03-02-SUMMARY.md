@@ -16,7 +16,7 @@ affects:
 
 # Tech tracking
 tech-stack:
-  added: [tfbreak binary (github.com/busser/tfbreak)]
+  added: [tfbreak binary (go install github.com/jokarl/tfbreak-core/cmd/tfbreak@latest)]
   patterns:
     - "Non-blocking required status check — workflow exits 0 always, result communicated via PR comment and label"
     - "git archive + temp dir baseline extraction pattern for per-module version comparison"
@@ -78,7 +78,7 @@ Each task was committed atomically:
 
 ## Decisions Made
 
-- Used `busser/tfbreak` binary (installed via curl from GitHub releases) since there is no official GitHub Action for tfbreak
+- Used `jokarl/tfbreak-core/` binary (installed with go@latest) since there is no official GitHub Action for tfbreak
 - Workflow always exits 0 — breaking changes are communicated via PR comment and label, not CI failure; this is the correct "required-but-non-blocking" pattern
 - Comparison baseline is the latest release tag per module (not base branch HEAD) — this is semantically correct for consumers who pin to version tags
 - The `terraform-breaking` label is created on-demand with `|| true` so the first PR with breaking changes never fails due to a missing label

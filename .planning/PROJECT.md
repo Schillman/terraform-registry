@@ -75,7 +75,6 @@ The `ref` parameter in consumer configs must match this pattern. `depth=1` is fo
 breaks once newer commits land after a release.
 
 **Agent model:** Agents operate fully autonomously for `feat:`/`fix:` commits (all CI passes = merge). Breaking
-changes (`feat!:`/`fix!:`) require human to verify tfbreak output before merging.
 
 **Versioning:** Conventional Commits drive auto-versioning via terraform-module-releaser:
 
