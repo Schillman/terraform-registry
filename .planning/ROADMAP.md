@@ -140,7 +140,7 @@ monitored for updates
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-02-28 |
 | 2. Automated Releases | 3/3 | Complete | 2026-03-03 |
-| 3. Documentation and Governance | 0/4 | Planned | - |
+| 3. Documentation and Governance | 2/4 | In Progress|  |
 | 4. Quality Gates | 0/? | Not started | - |
 | 5. Testing | 0/? | Not started | - |
 | 6. Maintenance Automation | 0/? | Not started | - |

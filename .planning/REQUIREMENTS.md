@@ -36,7 +36,7 @@
 - **Note:** Documentation generation (inputs/outputs tables) is handled by `terraform-module-releaser` via GitHub Wiki. No standalone `terraform-docs` CI step is needed.
 - [ ] **DOCS-04**: Root `README.md` lists all available modules with source URL pattern and version badge
 - [ ] **DOCS-05**: `SKILL.md` includes Dependabot maintenance note: one `terraform` entry required per new module directory
-- [ ] **DOCS-06**: The release workflow generates a `TAGS.json` file and commits it in each module directory containing the module name, release version, and the author of the latest commit. Modules that support a `tags` input variable should reference this file and be merged with the consumer inputs, so that deployed resources are automatically tagged with these module specific details.
+- [x] **DOCS-06**: The release workflow generates a `TAGS.json` file and commits it in each module directory containing the module name, release version, and the author of the latest commit. Modules that support a `tags` input variable should reference this file and be merged with the consumer inputs, so that deployed resources are automatically tagged with these module specific details.
 
 ### Quality Gates
 
@@ -119,7 +119,7 @@
 | REL-06 | Phase 2 | Pending |
 | DOCS-04 | Phase 3 | Pending |
 | DOCS-05 | Phase 3 | Pending |
-| DOCS-06 | Phase 3 | Pending |
+| DOCS-06 | Phase 3 | Complete |
 | QUAL-01 | Phase 4 | Pending |
 | QUAL-02 | Phase 4 | Pending |
 | QUAL-03 | Phase 4 | Pending |
