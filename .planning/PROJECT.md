@@ -14,6 +14,18 @@ terraform-module-releaser, conventional commit enforcement, full agent operating
 
 Every module in this repo must be production-ready out of the box — versioned, documented, tested, (deployed and destroyed) and security-scanned automatically, so consumers can pin a `ref` and trust what they get.
 
+## Current Milestone: v1.1 Quality & Governance
+
+**Goal:** Make every module production-hardened — enforced governance, automated security scanning, native test framework, and maintenance automation.
+
+**Target features:**
+- Phase 3: Documentation & Governance (TAGS.json, tfbreak, CODEOWNERS, auto-merge, PR/issue templates)
+- Phase 4: Quality Gates (dedicated TFLint + Trivy IaC scanning)
+- Phase 5: Testing (terraform test framework + pre-commit)
+- Phase 6: Maintenance Automation (Dependabot)
+
+---
+
 ## Requirements
 
 ### Validated
@@ -63,7 +75,6 @@ The `ref` parameter in consumer configs must match this pattern. `depth=1` is fo
 breaks once newer commits land after a release.
 
 **Agent model:** Agents operate fully autonomously for `feat:`/`fix:` commits (all CI passes = merge). Breaking
-changes (`feat!:`/`fix!:`) require human to verify tfbreak output before merging.
 
 **Versioning:** Conventional Commits drive auto-versioning via terraform-module-releaser:
 
@@ -96,4 +107,4 @@ changes (`feat!:`/`fix!:`) require human to verify tfbreak output before merging
 | module-path-ignore for tests/example | terraform-module-releaser detects tests/example/ as an independent module — must be excluded | ✓ Added Phase 2 — prevents extra tags on test paths |
 
 ---
-*Last updated: 2026-03-03 after v1.0 milestone*
+*Last updated: 2026-03-03 after v1.1 milestone start*

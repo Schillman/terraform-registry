@@ -21,8 +21,8 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 
 ### 📋 v1.1 (Planned)
 
-- [ ] **Phase 3: Documentation and Governance** - Enforce terraform-docs and establish
-  CODEOWNERS, branch protection, PR/issue templates
+- [x] **Phase 3: Documentation and Governance** - Establish CODEOWNERS, branch protection, (completed 2026-03-04)
+  PR/issue templates, and TAGS.json generation
 - [ ] **Phase 4: Quality Gates** - Add dedicated TFLint and Trivy security scanning to CI
 - [ ] **Phase 5: Testing** - Add native terraform test framework and pre-commit hooks
 - [ ] **Phase 6: Maintenance Automation** - Configure Dependabot and scaffold Terratest stubs
@@ -31,36 +31,37 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 
 ### Phase 3: Documentation and Governance
 
-**Goal**: Module READMEs are always current (auto-generated from source), breaking changes
+**Goal**: Module release metadata is captured in TAGS.json automatically, breaking changes
 are detected before they reach consumers, structural repo files are protected from
 unauthorized changes, and agent PRs for routine changes merge without human intervention
 **Depends on**: Phase 2
-**Requirements**: DOCS-01, DOCS-02, DOCS-03, DOCS-04, DOCS-05, DOCS-06,
+**Requirements**: DOCS-04, DOCS-05, DOCS-06,
 GOV-01, GOV-02, GOV-03, GOV-04, GOV-05
 **Success Criteria** (what must be TRUE):
 
-  1. Module README contains auto-generated inputs/outputs section between
-     `<!-- BEGIN_TF_DOCS -->` and `<!-- END_TF_DOCS -->` markers, kept current by CI
-  2. The terraform-docs CI commit uses `[skip ci]` in its commit message (no infinite
-     CI loops)
-  3. `TAGS.json` is committed to each module directory by the release workflow,
+  1. `TAGS.json` is committed to each module directory by the release workflow,
      containing module name, release version, and latest commit author
-  4. `tfbreak` runs in CI on PRs to detect breaking Terraform configuration changes;
+  2. `tfbreak` runs in CI on PRs to detect breaking Terraform configuration changes;
      PRs with breaking changes are flagged for human review
-  5. CODEOWNERS requires human review for `/.github/`, `/SKILL.md`, `/CLAUDE.md`
+  3. CODEOWNERS requires human review for `/.github/`, `/SKILL.md`, `/CLAUDE.md`
      but does NOT cover `modules/` (agent autonomy preserved)
-  6. An agent `feat:` PR that passes all CI checks merges automatically without human
+  4. An agent `feat:` PR that passes all CI checks merges automatically without human
      review
-  7. PR template includes Conventional Commits checklist; issue templates exist for
+  5. PR template includes Conventional Commits checklist; issue templates exist for
      bug reports and new module requests
 
 **Critical constraints**:
 
 - CODEOWNERS must NOT cover `modules/` (blocks agent auto-merge)
-- terraform-docs CI commit must use `[skip ci]` (prevents infinite loop)
 - tfbreak is complementary to tflint, not a replacement — both must run
 
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — TAGS.json generation workflow (DOCS-06)
+- [ ] 03-02-PLAN.md — tfbreak breaking change detection workflow (GOV-01)
+- [ ] 03-03-PLAN.md — CODEOWNERS, auto-merge workflow, branch protection (GOV-02, GOV-03)
+- [ ] 03-04-PLAN.md — PR/issue templates, root README, SKILL.md Dependabot note (GOV-04, GOV-05, DOCS-04, DOCS-05)
 
 ---
 
@@ -100,8 +101,8 @@ have a local pre-commit configuration that mirrors CI checks
   1. `modules/docker/container/tests/unit.tftest.hcl` exists with plan-mode assertions
   2. `tests/example/main.tf` uses `source = "../../"` (relative path, not Git URL)
   3. `test.yaml` matrix detects changed modules via `git diff` and fans out per module
-  4. `.pre-commit-config.yaml` mirrors CI: fmt, validate, tflint, terraform-docs,
-     trivy, conventional-pre-commit
+  4. `.pre-commit-config.yaml` mirrors CI: fmt, validate, tflint, trivy,
+     conventional-pre-commit
 
 **Critical constraints**:
 
@@ -139,7 +140,7 @@ monitored for updates
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-02-28 |
 | 2. Automated Releases | 3/3 | Complete | 2026-03-03 |
-| 3. Documentation and Governance | 0/? | Not started | - |
+| 3. Documentation and Governance | 4/4 | Complete   | 2026-03-04 |
 | 4. Quality Gates | 0/? | Not started | - |
 | 5. Testing | 0/? | Not started | - |
 | 6. Maintenance Automation | 0/? | Not started | - |

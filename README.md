@@ -1,30 +1,35 @@
 # Terraform Registry
 
-[![🧐 Lint Code Base](https://github.com/Schillman/terraform-registry/actions/workflows/lint.yaml/badge.svg)](https://github.com/Schillman/terraform-registry/actions/workflows/lint.yaml)
+[![Lint Code Base](https://github.com/Schillman/terraform-registry/actions/workflows/lint.yaml/badge.svg)](https://github.com/Schillman/terraform-registry/actions/workflows/lint.yaml)
 
-This is my central repository for storing a collection of Terraform modules.
+Central repository for production-ready Terraform modules.
+Every module is versioned, documented, and CI-validated automatically.
 
-## Using Modules
+## Available Modules
 
-You can easily reference modules from this repository.
-Use the `source` argument in a Modules block.
+| Module | Description | Latest Release |
+|--------|-------------|----------------|
+| [docker/container](modules/docker/container/) | Manages a Docker container with configurable image, ports, volumes, environment variables, and restart policy | [![docker/container](https://img.shields.io/github/v/tag/Schillman/terraform-registry?filter=modules%2Fdocker%2Fcontainer%2Fv*&label=latest&sort=semver)](https://github.com/Schillman/terraform-registry/releases?q=modules%2Fdocker%2Fcontainer) |
+
+## Using a Module
+
+Pin to a specific version using the module-scoped `ref`:
 
 ```hcl
-module "vending_machine" {
-  source = "github.com/Schillman/terraform-registry//modules/terraform-azurerm-subscription?ref=v1.0"
+module "container" {
+  source = "github.com/Schillman/terraform-registry//modules/docker/container?ref=modules/docker/container/v1.0.0"
 
-  # Your module configuration here
+  name              = "my-app"
+  docker_image_name = "nginx:latest"
 }
 ```
 
-Make sure to specify the correct `source` URL and tag to retrieve the desired module.
+> **Never use `depth=1` with version-pinned refs.** Once new commits land after a release,
+> a shallow clone cannot find older tags. Omit `depth` entirely.
 
 ## Adding Modules
 
-When adding new modules to this repository, follow these guidelines:
+New modules go in `modules/{provider}/{resource}/` and must include:
+`main.tf`, `variables.tf`, `outputs.tf`, `versions.tf`, `README.md`, `tests/`
 
-- Place modules in the `modules/` directory.
-- Each and every module should include a corresponding tests and/or examples in the `tests/` and/or `examples/` directories.
-- Adhere to Terraform's standard naming conventions for modules, which follow the format: `terraform-${provider}-${module_name`, for example, `terraform-docker-container`.
-
-Contributions and improvements to the Terraform Registry are welcome. Feel free to open issues or submit pull requests to enhance the collection of Terraform modules.
+See [SKILL.md](SKILL.md) for full agent conventions, commit rules, and Dependabot guidance.

@@ -1,0 +1,124 @@
+---
+name: Breaking Change Detection
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**.tf'
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  tfbreak:
+    name: Detect Breaking Changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Install tfbreak
+        run: go install github.com/jokarl/tfbreak-core/cmd/tfbreak@latest
+
+      - name: Detect changed modules
+        id: changed-modules
+        run: |
+          CHANGED_MODULES=$(git diff --name-only "origin/${{ github.base_ref }}...HEAD" \
+            | grep '\.tf$' \
+            | sed 's|/[^/]*\.tf$||' \
+            | grep '^modules/' \
+            | sort -u)
+          {
+            echo "modules<<EOF"
+            echo "$CHANGED_MODULES"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Run tfbreak per changed module
+        id: tfbreak
+        run: |
+          BREAKING=false
+          BREAKING_DETAILS=""
+
+          while IFS= read -r MODULE; do
+            [ -z "$MODULE" ] && continue
+
+            # Find latest release tag for this module (format: modules/{provider}/{resource}/v{semver})
+            LATEST_TAG=$(git tag --list "${MODULE}/v*" --sort=-version:refname | head -1)
+
+            if [ -z "$LATEST_TAG" ]; then
+              echo "No previous release tag found for ${MODULE}, skipping"
+              continue
+            fi
+
+            echo "Comparing ${MODULE} against baseline: ${LATEST_TAG}"
+
+            # Use tfbreak monorepo ref:path syntax — no manual git archive needed
+            # --base <tag>:<module-path> compares the tag's subdirectory against the working tree
+            RESULT=$(tfbreak check --base "${LATEST_TAG}:${MODULE}" "./${MODULE}" 2>&1) || {
+              BREAKING=true
+              BREAKING_DETAILS="${BREAKING_DETAILS}\n**\`${MODULE}\`:**\n\`\`\`\n${RESULT}\n\`\`\`\n"
+            }
+
+          done <<< "${{ steps.changed-modules.outputs.modules }}"
+
+          echo "breaking=${BREAKING}" >> "$GITHUB_OUTPUT"
+          {
+            echo "details<<EOF"
+            printf '%b' "${BREAKING_DETAILS}"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create terraform-breaking label if missing
+        if: steps.tfbreak.outputs.breaking == 'true'
+        run: |
+          gh label create "terraform-breaking" \
+            --color "E4800D" \
+            --description "PR introduces breaking Terraform configuration changes" \
+            --repo "${{ github.repository }}" || true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Apply terraform-breaking label
+        if: steps.tfbreak.outputs.breaking == 'true'
+        run: |
+          gh pr edit "${{ github.event.pull_request.number }}" \
+            --add-label "terraform-breaking" \
+            --repo "${{ github.repository }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment breaking changes
+        if: steps.tfbreak.outputs.breaking == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## Breaking Changes Detected\n\n${{ steps.tfbreak.outputs.details }}\n\nThis PR introduces breaking Terraform configuration changes. Consumers using pinned tags are unaffected until they update their ref, but this will produce a **major version bump** on release.`
+            })
+
+      - name: Comment no breaking changes
+        if: steps.tfbreak.outputs.breaking == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## No Breaking Changes Detected\n\ntfbreak ran against the latest release tag and found no breaking Terraform configuration changes in this PR.`
+            })

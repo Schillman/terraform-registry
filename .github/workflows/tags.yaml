@@ -1,0 +1,55 @@
+---
+name: Generate TAGS.json
+
+on:
+  push:
+    tags:
+      - 'modules/**/v[0-9]*'
+
+permissions:
+  contents: write
+
+jobs:
+  generate-tags-json:
+    name: Generate TAGS.json
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Extract tag components
+        id: tag
+        run: |
+          TAG_REF="${{ github.ref }}"
+          TAG="${TAG_REF#refs/tags/}"
+          MODULE_PATH="${TAG%/*}"
+          VERSION="${TAG##*/}"
+          AUTHOR="${{ github.event.pusher.name }}"
+          {
+            echo "module_path=${MODULE_PATH}"
+            echo "version=${VERSION}"
+            echo "author=${AUTHOR}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Write TAGS.json
+        run: |
+          jq -n \
+            --arg module "${{ steps.tag.outputs.module_path }}" \
+            --arg version "${{ steps.tag.outputs.version }}" \
+            --arg author "${{ steps.tag.outputs.author }}" \
+            '{"module": $module, "version": $version, "author": $author}' \
+            > "${{ steps.tag.outputs.module_path }}/TAGS.json"
+
+      - name: Commit and push TAGS.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "${{ steps.tag.outputs.module_path }}/TAGS.json"
+          git commit -m "chore: update TAGS.json for ${{ steps.tag.outputs.module_path }} ${{ steps.tag.outputs.version }}"
+          git push origin HEAD:main

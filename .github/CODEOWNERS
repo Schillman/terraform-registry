@@ -1,0 +1,6 @@
+# CODEOWNERS — structural repo files require human review
+# modules/ is intentionally NOT covered to preserve agent auto-merge
+
+/.github/   @Schillman
+/SKILL.md   @Schillman
+/CLAUDE.md  @Schillman
