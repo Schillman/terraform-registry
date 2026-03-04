@@ -34,8 +34,8 @@
 ### Documentation
 
 - **Note:** Documentation generation (inputs/outputs tables) is handled by `terraform-module-releaser` via GitHub Wiki. No standalone `terraform-docs` CI step is needed.
-- [ ] **DOCS-04**: Root `README.md` lists all available modules with source URL pattern and version badge
-- [ ] **DOCS-05**: `SKILL.md` includes Dependabot maintenance note: one `terraform` entry required per new module directory
+- [x] **DOCS-04**: Root `README.md` lists all available modules with source URL pattern and version badge
+- [x] **DOCS-05**: `SKILL.md` includes Dependabot maintenance note: one `terraform` entry required per new module directory
 - [x] **DOCS-06**: The release workflow generates a `TAGS.json` file and commits it in each module directory containing the module name, release version, and the author of the latest commit. Modules that support a `tags` input variable should reference this file and be merged with the consumer inputs, so that deployed resources are automatically tagged with these module specific details.
 
 ### Quality Gates
@@ -61,8 +61,8 @@
 - [x] **GOV-01**: Implement tfbreak to compare two Terraform configurations and reports breaking changes. tfbreak is complementary to tflint - use tflint for code quality and tfbreak for safe releases.
 - [x] **GOV-02**: Branch protection on `main`: require CI checks, require up-to-date branch, no direct pushes, no force pushes
 - [x] **GOV-03**: Auto-merge workflow merges agent `feat:`/`fix:` PRs that pass all CI checks without waiting for human review
-- [ ] **GOV-04**: PR template includes Conventional Commits checklist and testing confirmation
-- [ ] **GOV-05**: Issue templates for bug reports and new module requests
+- [x] **GOV-04**: PR template includes Conventional Commits checklist and testing confirmation
+- [x] **GOV-05**: Issue templates for bug reports and new module requests
 
 ### Maintenance
 
@@ -117,8 +117,8 @@
 | REL-04 | Phase 2 | Pending |
 | REL-05 | Phase 2 | Pending |
 | REL-06 | Phase 2 | Pending |
-| DOCS-04 | Phase 3 | Pending |
-| DOCS-05 | Phase 3 | Pending |
+| DOCS-04 | Phase 3 | Complete |
+| DOCS-05 | Phase 3 | Complete |
 | DOCS-06 | Phase 3 | Complete |
 | QUAL-01 | Phase 4 | Pending |
 | QUAL-02 | Phase 4 | Pending |
@@ -135,8 +135,8 @@
 | GOV-01 | Phase 3 | Complete |
 | GOV-02 | Phase 3 | Complete |
 | GOV-03 | Phase 3 | Complete |
-| GOV-04 | Phase 3 | Pending |
-| GOV-05 | Phase 3 | Pending |
+| GOV-04 | Phase 3 | Complete |
+| GOV-05 | Phase 3 | Complete |
 | MAINT-01 | Phase 6 | Pending |
 | MAINT-02 | Phase 1 | Complete |
 
