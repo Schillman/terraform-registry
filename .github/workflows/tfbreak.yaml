@@ -28,11 +28,13 @@ jobs:
         with:
           terraform_version: "~>1.9"
 
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
       - name: Install tfbreak
-        run: |
-          curl -sSL "https://github.com/busser/tfbreak/releases/latest/download/tfbreak_linux_amd64.tar.gz" \
-            | tar -xz -C /usr/local/bin tfbreak
-          tfbreak --version || echo "tfbreak installed"
+        run: go install github.com/jokarl/tfbreak-core/cmd/tfbreak@latest
 
       - name: Detect changed modules
         id: changed-modules
